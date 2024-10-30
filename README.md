@@ -5,3 +5,4 @@ Integrantes:
   Bruno Vieira Firmo - Ra:125221101268
   Geoavana Eduarda Ramos Gonçalves - Ra:
   Felipe Alves Coelho Vieira - RA: 12523173154
+  João Vitor Ferreira Lima - RA: 1242323401
