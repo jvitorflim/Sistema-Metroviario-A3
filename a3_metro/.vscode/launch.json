@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-A3MetroApplication<a3_metro>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.anhembi.a3.metro.a3_metro.A3MetroApplication",
+            "projectName": "a3_metro",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
