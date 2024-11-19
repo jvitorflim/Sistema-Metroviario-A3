@@ -15,44 +15,43 @@ public class UsuarioService extends AbstractService<Usuario>{
     @Autowired
     private UsuarioRepo repo;
 
-    public Usuario create(Usuario usuario) {
+    public Optional<Usuario> create(Usuario usuario) {
         try {
             super.create(usuario);
             if (usuario.getId() != 0) {
-                return null;
+                return Optional.empty();
             }
-        return repo.save(usuario);
+        usuario.setTecnico(false);
+        return  Optional.of(repo.save(usuario));
         } catch (Exception e) {
             e.getMessage();
-            return null;
+            return Optional.empty();
         }
     }
 
-    public Usuario update(Usuario usuario) {
+    public Optional<Usuario> update(Usuario usuario) {
         try {
             super.update(usuario);
             if (usuario.getId() <= 0) {
-                return null;
+                return Optional.empty();
             }
             Optional<Usuario> usuarioOptional = repo.findById(usuario.getId());
             if (!usuarioOptional.isPresent()) {
-                return null;
+                return Optional.empty();
             }
-            return repo.save(usuario);
+            return Optional.of(repo.save(usuario));
         } catch (Exception e) {
             e.getMessage();
-            return null;
+            return Optional.empty();
         }
     }
-
-    //CONTINUAR!
 
     public Optional<Usuario> updatePartial(Usuario usuario) {
         if (usuario.getId() <= 0) {
             return Optional.empty();
         }
         Optional<Usuario> usuarioOptional = repo.findById(usuario.getId());
-        if (!usuarioOptional.isPresent()) {
+        if (usuarioOptional.isEmpty()) {
             return Optional.empty();
         }
 
@@ -64,6 +63,9 @@ public class UsuarioService extends AbstractService<Usuario>{
         }
         if (usuario.getSenha().isEmpty()) {
             UsuarioFound.setSenha(usuario.getSenha());
+        }
+        if (!usuario.isAtivo()) {
+            UsuarioFound.setAtivo(usuario.isAtivo());
         }
         return Optional.of(repo.save(UsuarioFound));
     }
@@ -79,16 +81,28 @@ public class UsuarioService extends AbstractService<Usuario>{
         return (List<Usuario>) repo.findAll();
     }
 
-    public boolean delete(int cod) {
-        if (cod <= 0) {
-            return false;
+    public Optional<Usuario> findByEmail(String emailUsuario) {
+        if (emailUsuario.isEmpty()) {
+            return Optional.empty();
         }
-        Optional<Usuario> usuarioOptional = repo.findById(cod);
+        List<Usuario> usuarios = findAll();
+
+        return usuarios.stream()
+                   .filter(usuario -> usuario.getEmail().equalsIgnoreCase(emailUsuario))
+                   .findFirst();
+    }
+
+    public Optional<Usuario> delete(Usuario usuario) {
+        if (usuario != null) {
+            return Optional.empty();
+        }
+        Optional<Usuario> usuarioOptional = repo.findById(usuario.getId());
         if (!usuarioOptional.isPresent()) {
-            return false;
+            return Optional.empty();
         }
 
-        repo.deleteById(cod);
-        return true;
+        super.delete(usuario);
+        updatePartial(usuario);
+        return Optional.of(usuario);
     }
 }

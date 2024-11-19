@@ -26,9 +26,6 @@ public class Usuario extends AbstractEntity {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "cpf_cnpj", length = 14, nullable = false)
-    private int cpfCnpj;
-
     @Column(name = "senha", nullable = false)
     private String senha;
 
