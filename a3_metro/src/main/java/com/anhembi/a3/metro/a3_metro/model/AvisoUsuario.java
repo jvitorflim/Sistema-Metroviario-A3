@@ -10,8 +10,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+
 import com.anhembi.a3.metro.a3_metro.enums.TipoAvisoEnum;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "tb_aviso_usuario")
 public class AvisoUsuario extends AbstractEntity {
