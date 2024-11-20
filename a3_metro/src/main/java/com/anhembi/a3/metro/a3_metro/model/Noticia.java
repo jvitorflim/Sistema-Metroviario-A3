@@ -40,7 +40,7 @@ public class Noticia extends AbstractEntity {
     Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "id_estacao_fk", referencedColumnName="id_estacao_pk")
-    //@JsonIgnoreProperties("id_estacao_pk")
-    Estacao estacao;
+    @JoinColumn(name = "id_linha_fk", referencedColumnName="id_linha_pk")
+    //@JsonIgnoreProperties("id_linha_pk")
+    Linha linha;
 }

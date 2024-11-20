@@ -1,7 +1,11 @@
 package com.anhembi.a3.metro.a3_metro.model;
 
+import com.anhembi.a3.metro.a3_metro.enums.StatusLotacaoEnum;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,8 +35,9 @@ public class Trem extends AbstractEntity {
     @Column(name = "velocidade_max", nullable = false)
     private Double velocidadeMaxima;
 
-    @Column(name = "qtd_ocupacao", nullable = false)
-    private boolean qtdOcupacao;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "std_ocupacao", nullable = true, length = 20)
+    private StatusLotacaoEnum statusLotacao;
 
     @Column(name = "ar_condicionado", nullable = false)
     private boolean arCondicionado;

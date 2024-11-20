@@ -11,25 +11,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.anhembi.a3.metro.a3_metro.model.Usuario;
-import com.anhembi.a3.metro.a3_metro.service.UsuarioService;
+import com.anhembi.a3.metro.a3_metro.model.AvisoUsuario;
+import com.anhembi.a3.metro.a3_metro.service.AvisoUsuarioService;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/cadastro")
-public class CadastroUsuarioController {
+@RequestMapping("/linha")
+public class LinhaController {
 
     @Autowired
-    private UsuarioService service;
+    private AvisoUsuarioService service;
 
     @PostMapping
-    public ResponseEntity<Usuario> cadastrarUsuario(@RequestBody Usuario usuario) {
-        Optional<Usuario> novoUsuario = service.create(usuario);
+    public ResponseEntity<AvisoUsuario> cadastrarAvisoUsuario(@RequestBody AvisoUsuario avisoUsuario) {
+        Optional<AvisoUsuario> novoAvisoUsuario = service.create(avisoUsuario);
 
-        if (novoUsuario.isEmpty()) {
+        if (novoAvisoUsuario.isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
 
-        return new ResponseEntity<>(novoUsuario.get(), HttpStatus.CREATED);
+        return new ResponseEntity<>(novoAvisoUsuario.get(), HttpStatus.CREATED);
     }
 }

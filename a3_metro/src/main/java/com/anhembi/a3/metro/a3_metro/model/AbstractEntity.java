@@ -18,7 +18,7 @@ public abstract class AbstractEntity {
 
     @Column(name = "dt_criacao", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date dataCriaçao;
+    private Date dataCriacao;
 
     @Column(name = "dt_modificacao", nullable = false)
     @Temporal(TemporalType.DATE)

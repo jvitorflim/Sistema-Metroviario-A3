@@ -16,7 +16,7 @@ public abstract class AbstractService<E extends AbstractEntity> {
         }
 
         entidade.setAtivo(true);
-        entidade.setDataCriaçao(new Date());
+        entidade.setDataCriacao(new Date());
         entidade.setDataModificacao(new Date());
         return Optional.of(entidade);
     }
