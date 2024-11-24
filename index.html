@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela de Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<style>
+    body {
+        margin: 0;
+        font-family: 'Arial', sans-serif;
+        background: linear-gradient(135deg, #00c6ff, #0072ff);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .container {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        width: 400px;
+        padding: 30px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .input-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #555;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        border: 2px solid #0072ff;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: border-color 0.3s;
+    }
+
+    input:focus {
+        border-color: #00c6ff;
+        outline: none;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        background: #0072ff;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .btn:hover {
+        background: #00c6ff;
+    }
+
+    .switch-option {
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    .switch {
+        color: #0072ff;
+        text-decoration: none;
+    }
+
+    .switch:hover {
+        text-decoration: underline;
+    }
+
+    .hidden {
+        display: none;
+    }
+</style>
+<body>
+    <div class="container">
+        <!-- Tela Principal nesta porcaria -->
+        <div id="login-form" class="form-container">
+            <h1>Login</h1>
+            <form>
+                <div class="input-group">
+                    <label for="username">Usuário</label>
+                    <input type="text" id="username" placeholder="Digite seu usuário">
+                </div>
+                <div class="input-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" placeholder="Digite sua senha">
+                </div>
+                <button type="submit" class="btn">Entrar</button>
+                <p class="switch-option">Ou, <a href="#" id="collaborator-link" class="switch">clique aqui se for colaborador</a></p>
+                <p class="switch-option">Não tem uma conta? <a href="#" id="register-link" class="switch">Cadastre-se</a></p>
+            </form>
+        </div>
+
+        <!-- Tela de Login do escravo -->
+        <div id="collaborator-form" class="form-container hidden">
+            <h1>Login de Colaborador</h1>
+            <form id="collaborator-login">
+                <div class="input-group">
+                    <label for="cpf">CPF</label>
+                    <input type="text" id="cpf" placeholder="Digite seu CPF">
+                </div>
+                <div class="input-group">
+                    <label for="matricula">Matrícula</label>
+                    <input type="text" id="matricula" placeholder="Digite sua matrícula">
+                </div>
+                <button type="submit" class="btn">Entrar</button>
+                <p class="switch-option">Voltar para o <a href="#" id="login-link" class="switch">login</a></p>
+            </form>
+        </div>
+
+        <!-- Tela de lixo de cadastro -->
+        <div id="register-form" class="form-container hidden">
+            <h1>Cadastro</h1>
+            <form id="register">
+                <div class="input-group">
+                    <label for="name">Nome</label>
+                    <input type="text" id="name" placeholder="Digite seu nome">
+                </div>
+                <div class="input-group">
+                    <label for="cpf-register">CPF</label>
+                    <input type="text" id="cpf-register" placeholder="Digite seu CPF">
+                </div>
+                <div class="input-group">
+                    <label for="address">Endereço</label>
+                    <input type="text" id="address" placeholder="Digite seu endereço">
+                </div>
+                <button type="submit" class="btn">Cadastrar</button>
+                <p class="switch-option">Voltar para o <a href="#" id="back-login-link" class="switch">login</a></p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('login-form');
+        const collaboratorForm = document.getElementById('collaborator-form');
+        const registerForm = document.getElementById('register-form');
+
+        const collaboratorLink = document.getElementById('collaborator-link');
+        const registerLink = document.getElementById('register-link');
+        const loginLink = document.getElementById('login-link');
+        const backLoginLink = document.getElementById('back-login-link');
+
+        collaboratorLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginForm.classList.add('hidden');
+            collaboratorForm.classList.remove('hidden');
+        });
+
+        registerLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginForm.classList.add('hidden');
+            registerForm.classList.remove('hidden');
+        });
+
+        loginLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            collaboratorForm.classList.add('hidden');
+            loginForm.classList.remove('hidden');
+        });
+
+        backLoginLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerForm.classList.add('hidden');
+            loginForm.classList.remove('hidden');
+        });
+
+        document.getElementById('collaborator-login').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            alert("Usuário não encontrado, redirecionando para cadastro...");
+            collaboratorForm.classList.add('hidden');
+            registerForm.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
