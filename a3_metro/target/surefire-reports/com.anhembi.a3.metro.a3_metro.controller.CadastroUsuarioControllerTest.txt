@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.anhembi.a3.metro.a3_metro.controller.CadastroUsuarioControllerTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.048 s -- in com.anhembi.a3.metro.a3_metro.controller.CadastroUsuarioControllerTest
