@@ -11,10 +11,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.anhembi.a3.metro.a3_metro.enums.TipoAvisoEnum;
 import com.anhembi.a3.metro.a3_metro.model.AvisoUsuario;
@@ -30,24 +32,34 @@ public class AvisoUsuarioServiceTest {
     @Mock
     private AvisoUsuarioRepo avisoUsuarioRepo;
 
-    @Test
-    public void create_retornaAvisoUsuarioSalvo_quandoSucesso() {
-        // Dados de entrada
-        Usuario usuario = new Usuario();
-        usuario.setId(1);
-        usuario.setNome("Usuário Teste");
+    private Usuario usuario;
 
-        AvisoUsuario avisoUsuario = new AvisoUsuario();
+    private AvisoUsuario avisoUsuario;
+
+    @BeforeEach
+    void setUp() {
+        // Dados de entrada
+        usuario = new Usuario();
+        usuario.setId(1);
+        usuario.setNome("Bruno");
+        usuario.setEmail("usuario@teste.com");
+        usuario.setSenha("senha123");
+        usuario.setTecnico(false);
+        usuario.setDataCriacao(new Date());
+        usuario.setDataModificacao(new Date());
+        usuario.setAtivo(true);
+
+        avisoUsuario = new AvisoUsuario();
+        avisoUsuario.setId(1);
         avisoUsuario.setTipoAviso(TipoAvisoEnum.ATRASO);
         avisoUsuario.setUsuario(usuario);
+    }
 
-        AvisoUsuario avisoUsuarioSalvo = new AvisoUsuario();
-        avisoUsuarioSalvo.setId(1);
-        avisoUsuarioSalvo.setTipoAviso(TipoAvisoEnum.ATRASO);
-        avisoUsuarioSalvo.setUsuario(usuario);
-
+    @Test
+    @Transactional
+    public void create_retornaAvisoUsuarioSalvo_quandoSucesso() {
         // Mock
-        when(avisoUsuarioRepo.save(avisoUsuario)).thenReturn(avisoUsuarioSalvo);
+        when(avisoUsuarioRepo.save(avisoUsuario)).thenReturn(avisoUsuario);
 
         // Execução
         Optional<AvisoUsuario> resultado = avisoUsuarioService.create(avisoUsuario);
@@ -110,15 +122,18 @@ public class AvisoUsuarioServiceTest {
     @Test
     public void findAll_retornaListaDeAvisosUsuarios_quandoExistemAvisos() {
         List<AvisoUsuario> avisos = Arrays.asList(
-            new AvisoUsuario() {{
-                setId(1);
-                setTipoAviso(TipoAvisoEnum.ATRASO);
-            }},
-            new AvisoUsuario() {{
-                setId(2);
-                setTipoAviso(TipoAvisoEnum.FALHA_TECNICA);
-            }}
-        );
+                new AvisoUsuario() {
+                    {
+                        setId(1);
+                        setTipoAviso(TipoAvisoEnum.ATRASO);
+                    }
+                },
+                new AvisoUsuario() {
+                    {
+                        setId(2);
+                        setTipoAviso(TipoAvisoEnum.FALHA_TECNICA);
+                    }
+                });
 
         // Mock
         when(avisoUsuarioRepo.findAll()).thenReturn(avisos);
@@ -150,12 +165,13 @@ public class AvisoUsuarioServiceTest {
         usuario.setId(1);
 
         List<AvisoUsuario> avisos = Arrays.asList(
-            new AvisoUsuario() {{
-                setId(1);
-                setTipoAviso(TipoAvisoEnum.ATRASO);
-                setUsuario(usuario);
-            }}
-        );
+                new AvisoUsuario() {
+                    {
+                        setId(1);
+                        setTipoAviso(TipoAvisoEnum.ATRASO);
+                        setUsuario(usuario);
+                    }
+                });
 
         // Mock
         when(avisoUsuarioRepo.findAllByUsuario(usuario)).thenReturn(avisos);
@@ -181,11 +197,12 @@ public class AvisoUsuarioServiceTest {
     public void findAllByDataCriacao_retornaListaDeAvisos_quandoDataValida() {
         Date data = new Date();
         List<AvisoUsuario> avisos = Arrays.asList(
-            new AvisoUsuario() {{
-                setId(1);
-                setTipoAviso(TipoAvisoEnum.ATRASO);
-            }}
-        );
+                new AvisoUsuario() {
+                    {
+                        setId(1);
+                        setTipoAviso(TipoAvisoEnum.ATRASO);
+                    }
+                });
 
         // Mock
         when(avisoUsuarioRepo.findAllByDataCriacao(data)).thenReturn(avisos);

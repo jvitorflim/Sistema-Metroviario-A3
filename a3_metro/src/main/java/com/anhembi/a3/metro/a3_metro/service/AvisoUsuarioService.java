@@ -22,10 +22,10 @@ public class AvisoUsuarioService extends AbstractService<AvisoUsuario> {
     public Optional<AvisoUsuario> create(AvisoUsuario avisoUsuario) {
         try {
             super.create(avisoUsuario);
-            if (avisoUsuario.getId() == 0) {
-                return Optional.empty();
+            if (avisoUsuario.getId() != 0) {
+                return Optional.of(repo.save(avisoUsuario));
             }
-            return Optional.of(repo.save(avisoUsuario));
+            return Optional.empty();
         } catch (Exception e) {
             e.getMessage();
             return Optional.empty();

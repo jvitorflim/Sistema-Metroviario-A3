@@ -1,41 +1,42 @@
 /*package com.anhembi.a3.metro.a3_metro.controller;
 
-import com.anhembi.a3.metro.a3_metro.model.Usuario;
-import com.anhembi.a3.metro.a3_metro.service.UsuarioService;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.Optional;
+import com.anhembi.a3.metro.a3_metro.model.Usuario;
+import com.anhembi.a3.metro.a3_metro.service.UsuarioService;
 
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-@ExtendWith(MockitoExtension.class)
 class LoginUsuarioControllerTest {
 
-    private MockMvc mockMvc;
+    @InjectMocks
+    private LoginUsuarioController loginUsuarioController;
 
     @Mock
     private UsuarioService usuarioService;
 
-    @InjectMocks
-    private LoginUsuarioController loginUsuarioController;
+    private MockMvc mockMvc;
 
     private Usuario usuario;
 
     @BeforeEach
     void setUp() {
+        MockitoAnnotations.openMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(loginUsuarioController).build();
 
-        // Criação de um usuário para os testes
+        // Criação de um usuário padrão para os testes
         usuario = new Usuario();
         usuario.setId(1);
         usuario.setNome("Bruno");
@@ -54,7 +55,7 @@ class LoginUsuarioControllerTest {
         String usuarioJson = "{\"email\":\"usuario@teste.com\", \"senha\":\"senha123\"}";
 
         // Executando o teste da requisição GET /login/{usuario}
-        mockMvc.perform(get("/login/{usuario}", "usuario")
+        mockMvc.perform(post("/login/usuario")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(usuarioJson))
                 .andExpect(status().isOk()) // Espera status 200 OK
@@ -67,8 +68,8 @@ class LoginUsuarioControllerTest {
         // Criando o JSON para a requisição com um email inválido
         String usuarioJson = "{\"email\":\"usuario.com\", \"senha\":\"senha123\"}";
 
-        // Executando o teste da requisição GET /login/{usuario}
-        mockMvc.perform(get("/login/{usuario}", "usuario")
+        // Executando o teste da requisição POST /login/{usuario}
+        mockMvc.perform(post("/login/usuario")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(usuarioJson))
                 .andExpect(status().isBadRequest()); // Espera status 400 Bad Request
@@ -82,8 +83,8 @@ class LoginUsuarioControllerTest {
         // Criando o JSON para a requisição
         String usuarioJson = "{\"email\":\"usuario@teste.com\", \"senha\":\"senha123\"}";
 
-        // Executando o teste da requisição GET /login/{usuario}
-        mockMvc.perform(get("/login/{usuario}", "usuario")
+        // Executando o teste da requisição POST /login/{usuario}
+        mockMvc.perform(post("/login/usuario")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(usuarioJson))
                 .andExpect(status().isNotFound()); // Espera status 404 Not Found
@@ -97,8 +98,8 @@ class LoginUsuarioControllerTest {
         // Criando o JSON para a requisição com senha incorreta
         String usuarioJson = "{\"email\":\"usuario@teste.com\", \"senha\":\"senhaErrada\"}";
 
-        // Executando o teste da requisição GET /login/{usuario}
-        mockMvc.perform(get("/login/{usuario}", "usuario")
+        // Executando o teste da requisição POST /login/{usuario}
+        mockMvc.perform(post("/login/usuario")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(usuarioJson))
                 .andExpect(status().isBadRequest()); // Espera status 400 Bad Request
@@ -106,14 +107,14 @@ class LoginUsuarioControllerTest {
 
     @Test
     void testLoginUsuarioTecnico_Sucesso() throws Exception {
-        // Mockando o serviço para retornar o usuário
+        // Mockando o serviço para retornar o usuário técnico
         when(usuarioService.findByEmail("usuario@teste.com")).thenReturn(Optional.of(usuario));
 
         // Criando o JSON para a requisição
         String usuarioJson = "{\"email\":\"usuario@teste.com\", \"senha\":\"senha123\"}";
 
-        // Executando o teste da requisição GET /login/{usuario_tecnico}
-        mockMvc.perform(get("/login/{usuario_tecnico}", "usuario_tecnico")
+        // Executando o teste da requisição POST /login/usuario_tecnico
+        mockMvc.perform(post("/login/usuario_tecnico")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(usuarioJson))
                 .andExpect(status().isOk()) // Espera status 200 OK
@@ -132,25 +133,10 @@ class LoginUsuarioControllerTest {
         // Criando o JSON para a requisição
         String usuarioJson = "{\"email\":\"usuario@teste.com\", \"senha\":\"senha123\"}";
 
-        // Executando o teste da requisição GET /login/{usuario_tecnico}
-        mockMvc.perform(get("/login/{usuario_tecnico}", "usuario_tecnico")
+        // Executando o teste da requisição POST /login/usuario_tecnico
+        mockMvc.perform(post("/login/usuario_tecnico")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(usuarioJson))
-                .andExpect(status().isBadRequest()); // Espera status 400 Bad Request, pois o usuário não é técnico
-    }
-
-    @Test
-    void testLoginUsuarioTecnico_SenhaIncorreta() throws Exception {
-        // Mockando o serviço para retornar o usuário
-        when(usuarioService.findByEmail("usuario@teste.com")).thenReturn(Optional.of(usuario));
-
-        // Criando o JSON para a requisição com senha incorreta
-        String usuarioJson = "{\"email\":\"usuario@teste.com\", \"senha\":\"senhaErrada\"}";
-
-        // Executando o teste da requisição GET /login/{usuario_tecnico}
-        mockMvc.perform(get("/login/{usuario_tecnico}", "usuario_tecnico")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(usuarioJson))
-                .andExpect(status().isBadRequest()); // Espera status 400 Bad Request, pois a senha está errada
+                .andExpect(status().isBadRequest()); // Espera status 400 Bad Request
     }
 }*/

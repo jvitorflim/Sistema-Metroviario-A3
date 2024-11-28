@@ -27,7 +27,6 @@ public class UsuarioRepoTest {
 
     @BeforeEach
     void setUp() {
-        // Configuração inicial de um usuário para os testes
         usuario = new Usuario();
         usuario.setNome("Usuário Teste");
         usuario.setEmail("teste@exemplo.com");

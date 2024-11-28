@@ -1,5 +1,7 @@
 package com.anhembi.a3.metro.a3_metro.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,6 +38,6 @@ public class Estacao extends AbstractEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_linha_fk", referencedColumnName="id_linha_pk")
-    //@JsonIgnoreProperties("id_linha_pk")
+    @JsonIgnoreProperties("id_linha_pk")
     Linha linha;
 }
