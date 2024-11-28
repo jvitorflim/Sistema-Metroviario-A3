@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap">
+
+    <title>Linha Lilás</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3em;
+            color: #fff;
+            margin-bottom: 10px;
+            text-align: center;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(90deg, #8e24aa, #7b1fa2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #clock {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 10px;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        #mapa-linha {
+            position: relative;
+            width: 90%;
+            height: 110px;
+            background-color: #f5f5f5;
+            border: 2px solid #333;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            padding: 30px;
+            margin: 90px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .linha-metro {
+            position: absolute;
+            height: 6px;
+            background-color: #8e24aa;
+            width: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 0;
+            border-radius: 3px;
+        }
+
+        .estacao {
+            width: 25px;
+            height: 25px;
+            background-color: #fff;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 25px;
+            color: #8e24aa; 
+            font-weight: bold;
+            box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 0 8px;
+            z-index: 1;
+        }
+
+        .estacao:hover {
+            transform: scale(1.15);
+            box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .nome-estacao {
+            transform: translateY(-50%) rotate(-20deg);
+            transform-origin: left top;
+            white-space: nowrap;
+            position: absolute;
+            left: 50%;
+            bottom: 5px;
+            margin-left: -15px;
+            font-size: 0.9em;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .trem {
+            width: 18px;
+            height: 18px;
+            background-color: #7b1fa2; 
+            border-radius: 50%;
+            position: absolute;
+            transition: left 0.5s ease;
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .controls {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        button {
+            padding: 8px;
+            margin: 5px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 1em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            border-color: #8e24aa; 
+            outline: none;
+        }
+
+        button {
+            background-color: #8e24aa; 
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            border: none;
+        }
+
+        button:hover {
+            background-color: #7b1fa2; 
+            transform: translateY(-2px);
+        }
+
+        #informacoes {
+            margin-top: 30px;
+            font-size: 1em;
+            width: 30%;
+            background-color: #f5f5f5; 
+            padding: 15px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div id="clock"></div>
+    <h1>Linha 5 Lilás do Metrô de SP</h1>
+    <div id="mapa-linha">
+        <div class="linha-metro"></div>
+        <div class="estacao" data-info="Capão Redondo" onclick="mostrarInfo(event)">
+            <div class="nome-estacao">Capão Redondo</div>
+        </div>
+        <div class="estacao" data-info="Campo Limpo" onclick="mostrarInfo(event)">
+            <div class="nome-estacao">Campo Limpo</div>
+        </div>
+        <div class="estacao" data-info="Vila das Belezas" onclick="mostrarInfo(event)">
+            <div class="nome-estacao">Vila das Belezas</div>
+        </div>
+        <div class="estacao" data-info="Giovanni Gronchi" onclick="mostrarInfo(event)">
+            <div class="nome-estacao">Giovanni Gronchi</div>
+        </div>
+        <div class="estacao" data-info="Santo Amaro" onclick="mostrarInfo(event)">
+            <div class="nome-estacao">Santo Amaro</div>
+        </div>
+        <div class="estacao" data-info="Largo Treze" onclick="mostrarInfo(event)">
+            <div class="nome-estacao">Largo Treze</div>
+        </div>
+        <div class="estacao" data-info="Adolfo Pinheiro" onclick="mostrarInfo(event)">
+            <div class="nome-estacao">Adolfo Pinheiro</div>
+        </div>
+        <div class="estacao" data-info="Alto da Boa Vista" onclick="mostrarInfo(event)">
+            <div class="nome-estacao">Alto da Boa Vista</div>
+        </div>
+        <div class="estacao" data-info="Borba Gato" onclick="mostrarInfo(event)">
+            <div class="nome-estacao">Borba Gato</div>
+        </div>
+        <div class="estacao" data-info="Brooklin" onclick="mostrarInfo(event)">
+            <div class="nome-estacao">Brooklin</div>
+        </div>
+        <div class="estacao" data-info="Campo Belo" onclick="mostrarInfo(event)">
+            <div class="nome-estacao">Campo Belo</div>
+        </div>
+        <div class="estacao" data-info="Eucaliptos" onclick="mostrarInfo(event)">
+            <div class="nome-estacao">Eucaliptos</div>
+        </div>
+        <div class="estacao" data-info="Moema" onclick="mostrarInfo(event)">
+            <div class="nome-estacao">Moema</div>
+        </div>
+        <div class="estacao" data-info="AACD-Servidor" onclick="mostrarInfo(event)">
+            <div class="nome-estacao">AACD-Servidor</div>
+        </div>
+        <div class="estacao" data-info="Hospital São Paulo" onclick="mostrarInfo(event)">
+            <div class="nome-estacao">Hospital São Paulo</div>
+        </div>
+        <div class="estacao" data-info="Santa Cruz" onclick="mostrarInfo(event)">
+            <div class="nome-estacao">Santa Cruz</div>
+        </div>
+        <div class="estacao" data-info="Chácara Klabin" onclick="mostrarInfo(event)">
+            <div class="nome-estacao">C. Klabin</div>
+        </div>
+    </div>
+    <div id="botoes-feedback">
+        <button class="feedback-btn" data-feedback="Metrô devagar">Metrô Devagar</button>
+        <button class="feedback-btn" data-feedback="Metrô lotado">Metrô Lotado</button>
+        <button class="feedback-btn" data-feedback="Metrô vazio">Metrô Vazio</button>
+        <button class="feedback-btn" data-feedback="Metrô quebrado">Metrô Quebrado</button>
+    </div>
+    
+    <div id="informacoes"></div>
+    <script src="app.js"></script>
+    <script>
+        function atualizarRelogio() {
+            const now = new Date();
+            const options = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            document.getElementById('clock').innerText = now.toLocaleTimeString('pt-BR', options);
+        }
+        setInterval(atualizarRelogio, 1000);
+        atualizarRelogio();
+
+        function mostrarInfo(event) {
+            const estacao = event.target;
+            const info = estacao.getAttribute('data-info');
+            const infoPanel = document.getElementById('informacoes');
+            infoPanel.innerHTML = `<h3>Informações da Estação</h3><p>Estação: ${info}</p>`;
+        }
+    </script>
+</body>
+</html>
+
+</html>
