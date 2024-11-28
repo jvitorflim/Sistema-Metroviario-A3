@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tela de Login</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <style>
     body {
@@ -96,17 +96,21 @@
         <div id="login-form" class="form-container">
             <h1>Login</h1>
             <form>
+
+
                 <div class="input-group">
-                    <label for="username">Usuário</label>
-                    <input type="text" id="username" placeholder="Digite seu usuário">
+                    <label for="email-register"> Email</label>
+                    <input type="text" id="email-register" placeholder="Digite seu Email">
                 </div>
+
                 <div class="input-group">
-                    <label for="password">Senha</label>
+                    <label for="password-cadastro">Senha</label>
                     <input type="password" id="password" placeholder="Digite sua senha">
                 </div>
+
                 <button type="submit" class="btn">Entrar</button>
                 <p class="switch-option">Ou, <a href="#" id="collaborator-link" class="switch">clique aqui se for colaborador</a></p>
-                <p class="switch-option">Não tem uma conta? <a href="#" id="register-link" class="switch">Cadastre-se</a></p>
+                <p class="switch-option">Não possui uma conta? <a href="#" id="register-link" class="switch">Cadastre-se</a></p>
             </form>
         </div>
 
@@ -114,14 +118,17 @@
         <div id="collaborator-form" class="form-container hidden">
             <h1>Login de Colaborador</h1>
             <form id="collaborator-login">
+                
                 <div class="input-group">
-                    <label for="cpf">CPF</label>
-                    <input type="text" id="cpf" placeholder="Digite seu CPF">
+                    <label for="cpf-register"> Email</label>
+                    <input type="text" id="email-register" placeholder="Digite seu Email">
                 </div>
+
                 <div class="input-group">
-                    <label for="matricula">Matrícula</label>
-                    <input type="text" id="matricula" placeholder="Digite sua matrícula">
+                    <label for="password-cadastro">Senha</label>
+                    <input type="password" id="password" placeholder="Digite sua senha">
                 </div>
+
                 <button type="submit" class="btn">Entrar</button>
                 <p class="switch-option">Voltar para o <a href="#" id="login-link" class="switch">login</a></p>
             </form>
@@ -131,18 +138,17 @@
         <div id="register-form" class="form-container hidden">
             <h1>Cadastro</h1>
             <form id="register">
+            
                 <div class="input-group">
-                    <label for="name">Nome</label>
-                    <input type="text" id="name" placeholder="Digite seu nome">
+                    <label for="cpf-register"> Email</label>
+                    <input type="text" id="email-register" placeholder="Digite seu Email">
                 </div>
+
                 <div class="input-group">
-                    <label for="cpf-register">CPF</label>
-                    <input type="text" id="cpf-register" placeholder="Digite seu CPF">
+                    <label for="password-cadastro">Senha</label>
+                    <input type="password" id="password" placeholder="Digite sua senha">
                 </div>
-                <div class="input-group">
-                    <label for="address">Endereço</label>
-                    <input type="text" id="address" placeholder="Digite seu endereço">
-                </div>
+                
                 <button type="submit" class="btn">Cadastrar</button>
                 <p class="switch-option">Voltar para o <a href="#" id="back-login-link" class="switch">login</a></p>
             </form>
@@ -186,7 +192,7 @@
         document.getElementById('collaborator-login').addEventListener('submit', (e) => {
             e.preventDefault();
             
-            alert("Usuário não encontrado, redirecionando para cadastro...");
+            alert("Colaborador não encontrado, redirecionando para o cadastro...");
             collaboratorForm.classList.add('hidden');
             registerForm.classList.remove('hidden');
         });
