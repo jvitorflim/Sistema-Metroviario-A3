@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,20 +16,28 @@ import com.anhembi.a3.metro.a3_metro.service.UsuarioService;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("../login/login.html")
+@RequestMapping("/login")
 public class LoginUsuarioController {
 
     @Autowired
     private UsuarioService service;
 
-    @GetMapping("../login/login.html")
+    @PostMapping
     public ResponseEntity<Usuario> loginUsuario(@RequestBody Usuario usuario) {
+        return autenticarUsuario(usuario, false);
+    }
 
+    @PostMapping("/tecnico")
+    public ResponseEntity<Usuario> loginUsuarioTecnico(@RequestBody Usuario usuario) {
+        return autenticarUsuario(usuario, true);
+    }
+
+    private ResponseEntity<Usuario> autenticarUsuario(Usuario usuario, boolean isTecnico) {
         String emailUsuario = usuario.getEmail();
         String senhaUsuario = usuario.getSenha();
 
         if (!emailValido(emailUsuario)) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(null);
         }
 
         Optional<Usuario> usuarioOptional = service.findByEmail(emailUsuario);
@@ -38,48 +46,24 @@ public class LoginUsuarioController {
             return ResponseEntity.notFound().build();
         }
 
-        if (!senhaUsuario.equals(usuarioOptional.get().getSenha())) {
+        Usuario usuarioEncontrado = usuarioOptional.get();
+
+        if (isTecnico && !usuarioEncontrado.isTecnico()) {
+            return ResponseEntity.status(403).build(); // Proibido
+        }
+
+        if (!senhaUsuario.equals(usuarioEncontrado.getSenha())) {
             return ResponseEntity.badRequest().build();
         }
 
-        return ResponseEntity.ok(usuario);
+        return ResponseEntity.ok(usuarioEncontrado);
     }
 
-    @GetMapping("../web/telaColaborador/index.html")
-    public ResponseEntity<Usuario> loginUsuarioTecnico(@RequestBody Usuario usuario) {
-
-        String emailUsuario = usuario.getEmail();
-        String senhaUsuario = usuario.getSenha();
-
-        if (!emailValido(emailUsuario)) {
-            return ResponseEntity.badRequest().build();
+    private boolean emailValido(String emailUsuario) {
+        if (emailUsuario == null) {
+            return false;
         }
-
-        Optional<Usuario> usuarioOptional = service.findByEmail(emailUsuario);
-
-        if (usuarioOptional.get().isTecnico()) {
-            if (usuarioOptional.isEmpty()) {
-                return ResponseEntity.notFound().build();
-            }
-    
-            if (!senhaUsuario.equals(usuarioOptional.get().getSenha())) {
-                return ResponseEntity.badRequest().build();
-            }
-    
-            return ResponseEntity.ok(usuario);
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        return Pattern.matches(emailRegex, emailUsuario);
     }
-
-    public boolean emailValido(String emailUsuario) {
-        boolean valido = false;
-        if (emailUsuario != null) {
-            // Expressão regular simples para validação de email
-            String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-            valido = Pattern.matches(emailRegex, emailUsuario);
-        }
-        return valido;
-    }
-
 }
