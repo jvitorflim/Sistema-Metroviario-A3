@@ -16,13 +16,13 @@ import com.anhembi.a3.metro.a3_metro.service.UsuarioService;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/login")
+@RequestMapping("../login/login.html")
 public class LoginUsuarioController {
 
     @Autowired
     private UsuarioService service;
 
-    @GetMapping("/{usuario}")
+    @GetMapping("../login/login.html")
     public ResponseEntity<Usuario> loginUsuario(@RequestBody Usuario usuario) {
 
         String emailUsuario = usuario.getEmail();
@@ -45,7 +45,7 @@ public class LoginUsuarioController {
         return ResponseEntity.ok(usuario);
     }
 
-    @GetMapping("/{usuario_tecnico}")
+    @GetMapping("../web/telaColaborador/index.html")
     public ResponseEntity<Usuario> loginUsuarioTecnico(@RequestBody Usuario usuario) {
 
         String emailUsuario = usuario.getEmail();

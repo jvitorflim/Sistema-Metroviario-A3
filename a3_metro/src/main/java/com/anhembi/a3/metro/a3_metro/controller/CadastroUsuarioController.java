@@ -16,7 +16,7 @@ import com.anhembi.a3.metro.a3_metro.service.UsuarioService;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/cadastro")
+@RequestMapping("../login/login.html")
 public class CadastroUsuarioController {
 
     @Autowired
