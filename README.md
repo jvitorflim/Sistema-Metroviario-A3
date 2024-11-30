@@ -17,6 +17,6 @@ MySQL: Banco de dados para armazenar informações relevantes do sistema.
 
 Integrantes:
   Bruno Vieira Firmo - Ra:125221101268
-  Geoavana Eduarda Ramos Gonçalves - Ra:
+  Geoavana Eduarda Ramos Gonçalves -    Ra:1252320655 
   Felipe Alves Coelho Vieira -RA:12523173154
   João Vitor Ferreira Lima - RA: 1242323401
