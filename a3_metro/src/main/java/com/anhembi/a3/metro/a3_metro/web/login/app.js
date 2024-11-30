@@ -1,3 +1,46 @@
+const formulario = document.querySelector("form");
+const botao = document.querySelector("button");
+const nome = document.querySelector(".nome");
+const email = document.querySelector(".email");
+const senha = document.querySelector(".senha");
+const cadastrar = document.querySelector("btn");
+
+
+function cadastrar() {
+    fetch("http://localhost:3306/login", {
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+        method: "POST",
+        body: JSON.stringify({
+            nome: nome.value,
+            email: email.value,
+            senha: senha.value,
+            
+        })
+    })
+    .then(function (res) { console.log(res) })
+    .catch(function (res) { console.log(res) });
+}
+
+function limpar() {
+    inome.value = "";
+    iemail.value = "";
+    isenha.value = "";
+    itelefone.value = "";
+}
+
+formulario.addEventListener("submit", function (event) {
+    event.preventDefault();
+    cadastrar();
+    limpar();
+});
+
+
+
+
+
 document.getElementById('collaborator-btn').addEventListener('click', function() {
     const collaboratorForm = document.getElementById('collaborator-form');
     collaboratorForm.classList.toggle('hidden');
