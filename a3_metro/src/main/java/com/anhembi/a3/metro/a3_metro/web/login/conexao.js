@@ -1,64 +1,104 @@
-const txtCod = document.getElementById("cod")
-const txtValue = document.getElementById("value")
-const txtResposta = document.getElementById("resposta")
-const btnBuscar = document.getElementById("btn_buscar")
-const btnCadastrar = document.getElementById("btn_cadastrar")
+const txtEmailLogin = document.getElementById("emailUsuarioLogin");
+const txtSenhaLogin = document.getElementById("senhaUsuarioLogin");
+const txtEmailTecnico = document.getElementById("emailUsuarioTecnico");
+const txtSenhaTecnico = document.getElementById("senhaUsuarioTecnico");
+const txtEmailCadastro = document.getElementById("emailUsuarioCadastro");
+const txtSenhaCadastro = document.getElementById("senhaUsuarioCadastro");
+const txtResposta = document.getElementById("resposta");
+const btnLogin = document.getElementById("btn_entrar");
+const btnLoginTecnico = document.getElementById("btn_entrarTecnico");
+const btnLoginCadastrar = document.getElementById("btn_cadastrar");
 
+const urlLogin = "http://localhost:8080/login";
+const urlLoginTecnico = "http://localhost:8080/login/tecnico";
+const urlCadastro = "http://localhost:8080/cadastro";
 
-const url = "http://localhost:8080/product";
+async function login() {
+    try {
+        let resposta = await fetch(urlLogin, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "email": txtEmailLogin.value,
+                "senha": txtSenhaLogin.value
+            })
+        });
 
-async function buscar() {
-    let resposta =  await fetch(url + "/" + txtCod.value);
+        if (resposta.status == 200) {
+            let dados = await resposta.json();
+            txtResposta.innerHTML = `Login realizado! Bem-vindo, ${dados.email}`;
+        } else if (resposta.status == 404) {
+            txtResposta.innerHTML = "Usuário não encontrado!";
+        } else if (resposta.status == 400) {
+            txtResposta.innerHTML = "Dados inválidos. Verifique seu email e senha.";
+        } else {
+            txtResposta.innerHTML = "Erro ao realizar login.";
+        }
+    } catch (error) {
+        txtResposta.innerHTML = "Erro de conexão. Tente novamente.";
+        console.error(error);
+    }
+}
 
-    if(resposta.status == 200) {
-        let dados = await resposta.json();
-        txtName.value = dados["name"] 
-        txtValue.value = dados["value"] 
-        txtResposta.innerHTML = "Produto encontrado!"
-    } else {
-        txtResposta.innerHTML = "Produto não encontrado!"
+async function loginTecnico() {
+    try {
+        let resposta = await fetch(urlLoginTecnico, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "email": txtEmailTecnico.value,
+                "senha": txtSenhaTecnico.value
+            })
+        });
+
+        if (resposta.status === 200) {
+            let dados = await resposta.json();
+            txtResposta.innerHTML = `Login técnico realizado! Bem-vindo, ${dados.email}`;
+        } else if (resposta.status === 403) {
+            txtResposta.innerHTML = "Acesso negado. Este usuário não é técnico.";
+        } else if (resposta.status === 404) {
+            txtResposta.innerHTML = "Usuário não encontrado!";
+        } else if (resposta.status === 400) {
+            txtResposta.innerHTML = "Dados inválidos. Verifique seu email e senha.";
+        } else {
+            txtResposta.innerHTML = "Erro ao realizar login técnico.";
+        }
+    } catch (error) {
+        txtResposta.innerHTML = "Erro de conexão. Tente novamente.";
+        console.error(error);
     }
 }
 
 async function cadastrar() {
-    let resposta =  await fetch(url,{
-        method: "POST",
-        headers:{
-            "Content-Type":"application/json"
-        },
-        body:JSON.stringify({
-            "name": txtName.value,
-            "value": txtValue.value
-        })
-    });
+    try {
+        let resposta = await fetch(urlCadastro, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "email": txtEmailCadastro.value,
+                "senha": txtSenhaCadastro.value
+            })
+        });
 
-    if(resposta.status == 201) {
-        let dados = await resposta.json();
-        txtCod.value = dados["cod"]
-        txtName.value = dados["name"] 
-        txtValue.value = dados["value"] 
-        txtResposta.innerHTML = "Produto cadastrado!"
-    } else {
-        txtResposta.innerHTML = "Erro ao cadastrar!"
+        if (resposta.status == 201) {
+            let dados = await resposta.json();
+            txtResposta.innerHTML = `Usuário cadastrado com sucesso: ${dados.email}`;
+        } else {
+            txtResposta.innerHTML = "Erro ao cadastrar! Verifique os dados.";
+        }
+    } catch (error) {
+        txtResposta.innerHTML = "Erro de conexão. Tente novamente.";
+        console.error(error);
     }
 }
 
-async function apagar() {
-    let resposta =  await fetch(url + "/" + txtCod.value,
-    {
-        method: "DELETE",
-        headers:{
-            "Content-Type":"application/json"
-        },
-    });
 
-    if(resposta.status == 204) {
-        txtResposta.innerHTML = "Produto APAGADO!"
-    } else {
-        txtResposta.innerHTML = "Erro ao apagar!"
-    }
-}
-
-btnBuscar.addEventListener('click', buscar)
-btnCadastrar.addEventListener('click', cadastrar)
-btnApagar.addEventListener('click', apagar)
+btnLogin.addEventListener('click', login);
+btnLoginTecnico.addEventListener('click', loginTecnico);
+btnLoginCadastrar.addEventListener('click', cadastrar);
