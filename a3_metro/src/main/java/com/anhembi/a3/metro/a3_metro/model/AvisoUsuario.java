@@ -32,7 +32,7 @@ public class AvisoUsuario extends AbstractEntity {
     private TipoAvisoEnum tipoAviso;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario_fk", referencedColumnName="id_usuario_pk")
+    @JoinColumn(name = "id_usuario_fk", referencedColumnName="id_usuario_pk", nullable = true)
     @JsonIgnoreProperties("id_usuario_pk")
     Usuario usuario;
 }

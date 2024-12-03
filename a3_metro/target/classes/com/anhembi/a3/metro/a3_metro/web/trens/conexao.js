@@ -4,9 +4,9 @@ const btnVazio = document.getElementById("btn_vazio");
 const btnQuebrado = document.getElementById("btn_quebrado");
 const txtResposta = document.getElementById("resposta");
 
-const url = "http://localhost:8080/tecnico";
+const url = "http://localhost:8080/linha";
 
-async function enviarNoticia(tipoAviso) {
+async function enviarAviso(tipoAviso) {
     try {
         let resposta = await fetch(url, {
             method: "POST",
@@ -17,11 +17,11 @@ async function enviarNoticia(tipoAviso) {
         });
 
         if (resposta.status === 201) {
-            txtResposta.innerHTML = "Noticia cadastrado com sucesso!";
+            txtResposta.innerHTML = "Aviso cadastrado com sucesso!";
         } else if (resposta.status === 400) {
             txtResposta.innerHTML = "Erro: Dados inválidos.";
         } else {
-            txtResposta.innerHTML = "Erro ao cadastrar o noticia.";
+            txtResposta.innerHTML = "Erro ao cadastrar o aviso.";
         }
     } catch (error) {
         txtResposta.innerHTML = "Erro de conexão. Tente novamente.";
@@ -29,7 +29,7 @@ async function enviarNoticia(tipoAviso) {
     }
 }
 
-btnDevagar.addEventListener('click', () => enviarNoticia("ATRASO"));
-btnLotado.addEventListener('click', () => enviarNoticia("SUPERLOTACAO"));
-btnVazio.addEventListener('click', () => enviarNoticia("VAZIO"));
-btnQuebrado.addEventListener('click', () => enviarNoticia("QUEBRADO"));
+btnDevagar.addEventListener('click', () => enviarAviso("ATRASO"));
+btnLotado.addEventListener('click', () => enviarAviso("SUPERLOTACAO"));
+btnVazio.addEventListener('click', () => enviarAviso("VAZIO"));
+btnQuebrado.addEventListener('click', () => enviarAviso("QUEBRADO"));

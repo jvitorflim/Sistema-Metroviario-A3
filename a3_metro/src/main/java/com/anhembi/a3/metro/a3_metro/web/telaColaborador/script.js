@@ -19,20 +19,12 @@ function renderNotifications() {
                 <p>${notification.message}</p>
                 <small>Redirecionar para: ${notification.screen}</small>
             </div>
-            <button onclick="sendNotification(${notification.id})">Enviar</button>
+            <button id="btn_devagar" onclick="sendNotification(${notification.id})">Enviar</button>
         `;
         notificationsContainer.appendChild(notificationElement);
     });
 }
 
-// Função para enviar a notificação para a tela principal correspondente
-function sendNotification(notificationId) {
-    const notification = notifications.find(n => n.id === notificationId);
-    if (notification) {
-        alert(`Notificação enviada para: ${notification.screen}`);
-        // Aqui você pode adicionar lógica para atualizar a tela principal correspondente
-    }
-}
 
 
 renderNotifications();

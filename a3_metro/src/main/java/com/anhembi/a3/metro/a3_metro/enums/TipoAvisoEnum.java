@@ -7,9 +7,11 @@ public enum TipoAvisoEnum {
     ATRASO(1, "Atraso"),
     ACIDENTE(2, "Acidente"),
     SUPERLOTACAO(3, "Superlotação"),
-    OBSTRUCAO(4, "Obstrução na via"),
-    FALTA_ENERGIA(5,"Falta de energia"),
-    FALHA_TECNICA(6, "Falha técnica");
+    VAZIO(4, "Vazio"),
+    OBSTRUCAO(5, "Obstrução na via"),
+    FALTA_ENERGIA(6,"Falta de energia"),
+    FALHA_TECNICA(7, "Falha técnica"),
+    QUEBRADO(7, "Quebrado");
 
     private Integer codigo;
     private String nome;
