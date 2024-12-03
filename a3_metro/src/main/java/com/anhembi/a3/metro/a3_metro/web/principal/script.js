@@ -10,23 +10,19 @@ atualizarRelogio();
 // OCORRENCIAS / NOTICIAS
 
 function carregarOcorrencias() {
-    const url = 'https://seu-backend.com/api/ocorrencias';
+    // Obtém as ocorrências do localStorage
+    const ocorrencias = JSON.parse(localStorage.getItem("ocorrencias")) || [];
 
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            if (data.ocorrencias && data.ocorrencias.length > 0) {
-                const ocorrenciasLetreiro = data.ocorrencias.join(" • ");
-                document.getElementById("ocorrencias-letreiro").textContent = ocorrenciasLetreiro;
-            } else {
-                document.getElementById("ocorrencias-letreiro").textContent = "Nenhuma ocorrência no momento.";
-            }
-        })
-        .catch(error => {
-            console.error('Erro ao carregar ocorrências:', error);
-            document.getElementById("ocorrencias-letreiro").textContent = "Erro ao carregar ocorrências.";
-        });
+    // Atualiza o conteúdo do container
+    const letreiro = document.getElementById("ocorrencias-letreiro");
+    if (ocorrencias.length > 0) {
+        letreiro.textContent = ocorrencias.join(" • ");
+    } else {
+        letreiro.textContent = "Nenhuma ocorrência no momento.";
+    }
 }
+
+
 
 // Chama a função ao carregar a página
 window.onload = carregarOcorrencias;

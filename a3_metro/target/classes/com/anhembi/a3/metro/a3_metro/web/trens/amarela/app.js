@@ -216,3 +216,32 @@ document.querySelectorAll('.feedback-btn').forEach(botao => {
         enviarFeedback(feedback); 
     });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.feedback-btn');
+    const popup = document.getElementById('popup');
+    const popupMessage = document.getElementById('popup-message');
+    const popupClose = document.getElementById('popup-close');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            const feedback = button.getAttribute('data-feedback');
+            popupMessage.textContent = `Você selecionou: ${feedback}`;
+            popup.style.display = 'block';
+            document.body.classList.add('popup-active');
+        });
+    });
+
+    popupClose.addEventListener('click', () => {
+        popup.style.display = 'none';
+        document.body.classList.remove('popup-active');
+    });
+
+    // Fecha o pop-up ao clicar fora dele
+    window.addEventListener('click', (event) => {
+        if (event.target === popup) {
+            popup.style.display = 'none';
+            document.body.classList.remove('popup-active');
+        }
+    });
+});

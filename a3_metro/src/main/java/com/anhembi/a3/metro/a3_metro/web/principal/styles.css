@@ -1,4 +1,4 @@
-
+/* Reset de margens, padding e box-sizing */
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +6,7 @@
     font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
 }
 
-
+/* Estilo do corpo */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -15,49 +15,60 @@ body {
     min-height: 100vh;
     justify-content: center; /* Centraliza verticalmente */
     align-items: center; /* Centraliza horizontalmente */
+    background-color: #f4f4f9; /* Cor de fundo suave */
 }
 
+/* Estilo do cabeçalho */
 header {
     width: 100%;
     background-color: #1531af;
     color: #500eb9;
-    padding: 15px;
+    padding: 15px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave no cabeçalho */
+    border-bottom: 2px solid #ddd;
+    border-radius: 5px; /* Bordas arredondadas */
 }
 
-
+/* Logo no cabeçalho */
 .logo {
     font-size: 1.8em;
     font-weight: bold;
     color: #ffffff; 
     text-transform: uppercase;
     letter-spacing: 2px;
+    transition: transform 0.3s ease;
 }
 
+.logo:hover {
+    transform: scale(1.05); /* Efeito de zoom suave */
+}
 
-
-
+/* Container das ocorrências (marquee) */
 .ocorrencias-container {
     width: 100%;
     background-color: #ffffff;
-    overflow: hidden;
-    white-space: nowrap;
-    padding: 10px 0;
+    padding: 15px 20px;
     box-sizing: border-box;
+    border-radius: 8px; /* Bordas arredondadas */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    margin: 20px 0;
+    overflow: hidden;
+    border-left: 5px solid #1531af; /* Linha esquerda para dar mais destaque */
 }
 
-
+/* Estilo das ocorrências (rolando) */
 .ocorrencias {
     font-weight: bold;
     color: #d9534f; 
-    font-size: 1.2em;
-    padding: 5px;
+    font-size: 1.4em;
     text-align: center;
-    overflow: hidden;
     white-space: nowrap;
     animation: rolando 10s linear infinite;
+    padding: 5px;
+    font-family: 'Arial', sans-serif;
 }
 
 @keyframes rolando {
@@ -69,57 +80,70 @@ header {
     }
 }
 
+/* Estilo do relógio */
 #clock {
     font-size: 1.2em;
     color: #ffffff;
-    margin-bottom: 10px;
     position: absolute;
     top: 20px;
     right: 20px;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.3); /* Fundo semitransparente */
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
-
+/* Conteúdo principal */
 .conteudo {
     margin-top: 5%;
     width: 40%;
     max-width: 600px;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    border-radius: 8px;
 }
 
-
-
+/* Estilo das linhas (botões de navegação) */
 .linha {
-
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease, transform 0.3s ease;
     background-color: #e0e0e0;
     margin-bottom: 15px;
-    padding: 15px;
-    border-radius: 8px;
+    padding: 20px;
+    border-radius: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .linha:hover {
-    background-color: #f0f0f0; 
+    background-color: #f0f0f0;
     color: #333; 
-    border-radius: 5px; 
+    transform: scale(1.03); /* Efeito de zoom */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra mais forte ao passar o mouse */
 }
 
-
+/* Nome da linha */
 .linha-nome {
     font-size: 1.3em;
     font-weight: bold;
+    color: #333;
+    transition: color 0.3s ease;
 }
 
+/* Status das linhas */
 .status {
     font-size: 1.1em;
     padding: 5px 10px;
     border-radius: 5px;
     color: #fff;
+    font-weight: bold;
 }
 
-
+/* Status de operação */
 .status-superlotado {
     background-color: #d32f2f;
 }
@@ -132,40 +156,28 @@ header {
     background-color: #388e3c;
 }
 
-.linha-metro-linha-azul {
-    font-size: 1.3em;
-    font-weight: bold;
-    text-decoration: none; 
-    color: #000000;
-}
-
-.linha-metro-linha-amarela {
-    font-size: 1.3em;
-    font-weight: bold;
-    text-decoration: none; 
-    color: #000000; 
-}
-.linha-metro-linha-verde {
-    font-size: 1.3em;
-    font-weight: bold;
-    text-decoration: none; 
-    color: #000000; 
-}
-.linha-metro-linha-vermelha {
-    font-size: 1.3em;
-    font-weight: bold;
-    text-decoration: none; 
-    color: #000000; 
-}
+/* Estilo dos links das linhas */
+.linha-metro-linha-azul,
+.linha-metro-linha-amarela,
+.linha-metro-linha-verde,
+.linha-metro-linha-vermelha,
 .linha-metro-linha-lilas {
     font-size: 1.3em;
     font-weight: bold;
     text-decoration: none; 
-    color: #000000; 
+    color: #000000;
+    transition: color 0.3s ease;
 }
 
+.linha-metro-linha-azul:hover,
+.linha-metro-linha-amarela:hover,
+.linha-metro-linha-verde:hover,
+.linha-metro-linha-vermelha:hover,
+.linha-metro-linha-lilas:hover {
+    color: #1531af; /* Cor de destaque */
+}
 
-
+/* Botão de login */
 .container {
     text-align: center;
 }
@@ -178,23 +190,55 @@ header {
     font-size: 16px;
     cursor: pointer;
     border-radius: 5px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
     margin-right: 100px;
 }
 
 .login-btn:hover {
     background-color: #0056b3;
+    transform: scale(1.05); /* Efeito de zoom */
+}
+
+/* Estilo do rodapé */
+/* Estilo do rodapé */
+footer {
+    text-align: center;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-top: 1px solid #ddd;
+    position: relative;  /* Para garantir que o rodapé fique abaixo de todo o conteúdo */
+    width: 100%;
+    font-size: 0.9em;
+    color: #555;
+    margin-top: 50px; /* Espaço entre as linhas e o rodapé */
+}
+
+/* Garante que o conteúdo principal não sobreponha o rodapé */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: space-between; /* Garante que o rodapé fique na parte inferior */
+    align-items: center;
 }
 
 
+/* Adicionando a responsividade */
+@media (max-width: 768px) {
+    .conteudo {
+        width: 90%;
+    }
 
-footer {
-    margin-top: 250px;
-    margin-left: 50px;
-    text-align: center;
-    background-color: #f8f9fa;
-    padding: 10px 0;
-    border-top: 1px solid #ddd;
-    flex-direction: column;
-    justify-content: center;
+    .linha {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .linha-nome {
+        font-size: 1.2em;
+    }
+
+    .status {
+        margin-top: 5px;
+    }
 }

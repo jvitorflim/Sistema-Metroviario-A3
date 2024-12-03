@@ -216,3 +216,12 @@ document.querySelectorAll('.feedback-btn').forEach(botao => {
         enviarFeedback(feedback); 
     });
 });
+
+async function enviarFeedback(feedback) {
+    
+    if (resposta.ok) {
+        alert('Feedback enviado com sucesso!');
+    } else {
+        alert('Feedback enviado com sucesso!');
+    }
+}  

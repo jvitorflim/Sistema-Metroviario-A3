@@ -177,6 +177,38 @@
             flex-direction: column;
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
         }
+        .popup {
+    display: none; /* Oculta o pop-up por padrão */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+}
+
+.popup-content {
+    position: relative;
+}
+
+.popup-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+body.popup-active {
+    overflow: hidden; /* Evita rolagem quando o pop-up está ativo */
+}
+
     </style>
 </head>
 <body>
@@ -227,6 +259,13 @@
         <button id="btn_quebrado" class="feedback-btn" data-feedback="Metrô quebrado">Metrô Quebrado</button>
         <label id="resposta"></label>
     </div>
+    <!-- Popup container -->
+<div id="resposta" class="resposta">
+    <div class="resposta-content">
+        <span id="resposta-close" class="resposta-close">&times;</span>
+        <p id="resposta-message"></p>
+    </div>
+</div>
 
     <div id="informacoes"></div>
     <script src="app.js"></script>
