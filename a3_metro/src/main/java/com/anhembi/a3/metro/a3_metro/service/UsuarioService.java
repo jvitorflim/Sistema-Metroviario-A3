@@ -19,7 +19,7 @@ public class UsuarioService extends AbstractService<Usuario> {
     public Optional<Usuario> create(Usuario usuario) {
         try {
             super.create(usuario);
-            if (usuario.getId() != 0) {
+            if (usuario.getId() == 0) {
                 return Optional.of(repo.save(usuario));
             }
             return Optional.empty();

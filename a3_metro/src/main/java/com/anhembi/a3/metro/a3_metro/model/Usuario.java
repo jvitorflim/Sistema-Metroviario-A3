@@ -20,7 +20,7 @@ public class Usuario extends AbstractEntity {
     @Column(name = "id_usuario_pk")
     private int id;
 
-    @Column(name = "nm_usuario", nullable = false)
+    @Column(name = "nm_usuario", nullable = true)
     private String nome;
 
     @Column(name = "email", nullable = false)

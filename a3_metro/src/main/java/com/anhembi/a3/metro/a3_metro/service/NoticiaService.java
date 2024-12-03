@@ -22,7 +22,7 @@ public class NoticiaService extends AbstractService<Noticia> {
     public Optional<Noticia> create(Noticia noticia) {
         try {
             super.create(noticia);
-            if (noticia.getId() == 0) {
+            if (noticia.getId() != 0) {
                 return Optional.empty();
             }
             return Optional.of(repo.save(noticia));

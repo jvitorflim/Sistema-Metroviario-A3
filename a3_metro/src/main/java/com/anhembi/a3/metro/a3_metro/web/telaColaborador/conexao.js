@@ -1,64 +1,35 @@
-const txtCod = document.getElementById("cod")
-const txtValue = document.getElementById("value")
-const txtResposta = document.getElementById("resposta")
-const btnBuscar = document.getElementById("btn_buscar")
-const btnCadastrar = document.getElementById("btn_cadastrar")
+const btnDevagar = document.getElementById("btn_devagar");
+const btnLotado = document.getElementById("btn_lotado");
+const btnVazio = document.getElementById("btn_vazio");
+const btnQuebrado = document.getElementById("btn_quebrado");
+const txtResposta = document.getElementById("resposta");
 
+const url = "http://localhost:8080/tecnico";
 
-const url = "http://localhost:8080/product";
+async function enviarNoticia(tipoAviso) {
+    try {
+        let resposta = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ "tipoAviso": tipoAviso })
+        });
 
-async function buscar() {
-    let resposta =  await fetch(url + "/" + txtCod.value);
-
-    if(resposta.status == 200) {
-        let dados = await resposta.json();
-        txtName.value = dados["name"] 
-        txtValue.value = dados["value"] 
-        txtResposta.innerHTML = "Produto encontrado!"
-    } else {
-        txtResposta.innerHTML = "Produto não encontrado!"
+        if (resposta.status === 201) {
+            txtResposta.innerHTML = "Noticia cadastrado com sucesso!";
+        } else if (resposta.status === 400) {
+            txtResposta.innerHTML = "Erro: Dados inválidos.";
+        } else {
+            txtResposta.innerHTML = "Erro ao cadastrar o noticia.";
+        }
+    } catch (error) {
+        txtResposta.innerHTML = "Erro de conexão. Tente novamente.";
+        console.error(error);
     }
 }
 
-async function cadastrar() {
-    let resposta =  await fetch(url,{
-        method: "POST",
-        headers:{
-            "Content-Type":"application/json"
-        },
-        body:JSON.stringify({
-            "name": txtName.value,
-            "value": txtValue.value
-        })
-    });
-
-    if(resposta.status == 201) {
-        let dados = await resposta.json();
-        txtCod.value = dados["cod"]
-        txtName.value = dados["name"] 
-        txtValue.value = dados["value"] 
-        txtResposta.innerHTML = "Produto cadastrado!"
-    } else {
-        txtResposta.innerHTML = "Erro ao cadastrar!"
-    }
-}
-
-async function apagar() {
-    let resposta =  await fetch(url + "/" + txtCod.value,
-    {
-        method: "DELETE",
-        headers:{
-            "Content-Type":"application/json"
-        },
-    });
-
-    if(resposta.status == 204) {
-        txtResposta.innerHTML = "Produto APAGADO!"
-    } else {
-        txtResposta.innerHTML = "Erro ao apagar!"
-    }
-}
-
-btnBuscar.addEventListener('click', buscar)
-btnCadastrar.addEventListener('click', cadastrar)
-btnApagar.addEventListener('click', apagar)
+btnDevagar.addEventListener('click', () => enviarNoticia("ATRASO"));
+btnLotado.addEventListener('click', () => enviarNoticia("SUPERLOTACAO"));
+btnVazio.addEventListener('click', () => enviarNoticia("VAZIO"));
+btnQuebrado.addEventListener('click', () => enviarNoticia("QUEBRADO"));
