@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trens de São Paulo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    
+    <header>
+        <div class="logo">Trens de São Paulo</div>
+        <div id="clock"></div>
+
+        <div class="container">
+            <a href="../login/login.html">
+                <button class="login-btn">Faça Login</button>
+            </a>
+        </div>
+    </header>
+
+<!--NOTICIAS / OCORRENCIAS-->
+
+    <div class="ocorrencias-container">
+        <div class="ocorrencias">Carregando ocorrências</div>
+    </div>
+
+   
+    <div class="conteudo">
+       
+        <div class="linha" onclick="mostrarDetalhes('Linha Azul')">
+            <a href="../trens/azul/linha-azul.html" class="linha-metro-linha-azul">Linha Azul</a>
+            <div class="status status-superlotado">Operação Super Lotado</div>
+        </div>
+
+        <div class="linha" onclick="mostrarDetalhes('Linha Verde')">
+            <a href="../trens/verde/linha-verde.html" class="linha-metro-linha-verde">Linha Verde</a>
+            <div class="status status-operaçãomediana">Operação Mediana</div>
+        </div>
+
+        <div class="linha" onclick="mostrarDetalhes('Linha Vermelha')">
+            <a href="../trens/vermelha/linha-vermelha.html" class="linha-metro-linha-vermelha">Linha Vermelha</a>
+            <div class="status status-superlotado">Operação Normal</div>
+        </div>
+        
+        <div class="linha" onclick="mostrarDetalhes('Linha Amarela')">
+            <a href="../trens/amarela/linha-amarela.html" class="linha-metro-linha-amarela">Linha Amarela</a>
+            <div class="status status-operaçãonormal">Operação Normal</div>
+        </div>
+
+        <div class="linha" onclick="mostrarDetalhes('Linha Lilás')">
+            <a href="../trens/lilas/linha-lilas.html" class="linha-metro-linha-lilas">Linha Lilás</a>
+            <div class="status status-operaçãomediana">Operação Normal</div>
+        </div>
+    </div>
+    <footer>
+        <p id="footerText">Integrantes: Bruno Vieira Firmo |
+                            Geoavana Eduarda Ramos Gonçalves |
+                            Felipe Alves Coelho Vieira |
+                            João Vitor Ferreira Lima</p>
+    </footer>
+
+        
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

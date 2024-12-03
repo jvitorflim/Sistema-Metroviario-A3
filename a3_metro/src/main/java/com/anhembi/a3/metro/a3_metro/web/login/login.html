@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela de Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+</head>
+<style>
+    body {
+        margin: 0;
+        font-family: 'Arial', sans-serif;
+        background: linear-gradient(135deg, #00c6ff, #0072ff);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .container {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        width: 400px;
+        padding: 30px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .input-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #555;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        border: 2px solid #0072ff;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: border-color 0.3s;
+    }
+
+    input:focus {
+        border-color: #00c6ff;
+        outline: none;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        background: #0072ff;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .btn:hover {
+        background: #00c6ff;
+    }
+
+    .switch-option {
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    .switch {
+        color: #0072ff;
+        text-decoration: none;
+    }
+
+    .switch:hover {
+        text-decoration: underline;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    #resposta {
+        margin-top: 10px;
+        text-align: center;
+    }
+</style>
+<body>
+    <div class="container">
+        <!-- Tela de login -->
+        <div id="login-form" class="form-container">
+            <h1>Login</h1>
+            <div class="input-group">
+                <label for="emailUsuarioLogin">Email</label>
+                <input type="text" id="emailUsuarioLogin" placeholder="Digite seu Email">
+            </div>
+
+            <div class="input-group">
+                <label for="senhaUsuarioLogin">Senha</label>
+                <input type="password" id="senhaUsuarioLogin" placeholder="Digite sua senha">
+            </div>
+
+            <div class="btn-container">
+                <button type="button" id="btn_entrar" class="btn">Entrar</button>
+            </div>
+            <p class="switch-option">Ou, <a href="#" id="collaborator-link" class="switch">clique aqui se for colaborador</a></p>
+            <p class="switch-option">Não possui uma conta? <a href="#" id="register-link" class="switch">Cadastre-se</a></p>
+        </div>
+
+        <!-- Tela de login Técnico -->
+        <div id="collaborator-form" class="form-container hidden">
+            <h1>Login de Colaborador</h1>
+            <div class="input-group">
+                <label for="emailUsuarioTecnico">Email</label>
+                <input type="text" id="emailUsuarioTecnico" placeholder="Digite seu Email">
+            </div>
+
+            <div class="input-group">
+                <label for="senhaUsuarioTecnico">Senha</label>
+                <input type="password" id="senhaUsuarioTecnico" placeholder="Digite sua senha">
+            </div>
+
+            <button id="btn_entrarTecnico" type="button" class="btn">Entrar</button>
+            <p class="switch-option">Voltar para o <a href="#" id="login-link" class="switch">login</a></p>
+        </div>
+
+        <!-- Tela de cadastro -->
+        <div id="register-form" class="form-container hidden">
+            <h1>Cadastro</h1>
+            <div class="input-group">
+                <label for="emailUsuarioCadastro">Email</label>
+                <input type="text" id="emailUsuarioCadastro" placeholder="Digite seu Email">
+            </div>
+
+            <div class="input-group">
+                <label for="senhaUsuarioCadastro">Senha</label>
+                <input type="password" id="senhaUsuarioCadastro" placeholder="Digite sua senha">
+            </div>
+
+            <button id="btn_cadastrar" type="button" class="btn">Cadastrar</button>
+            <p class="switch-option">Voltar para o <a href="#" id="back-login-link" class="switch">login</a></p>
+        </div>
+        <label id="resposta"></label>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
