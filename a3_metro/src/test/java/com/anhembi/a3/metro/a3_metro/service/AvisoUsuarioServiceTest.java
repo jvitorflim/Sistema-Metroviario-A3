@@ -50,7 +50,6 @@ public class AvisoUsuarioServiceTest {
         usuario.setAtivo(true);
 
         avisoUsuario = new AvisoUsuario();
-        avisoUsuario.setId(1);
         avisoUsuario.setTipoAviso(TipoAvisoEnum.ATRASO);
         avisoUsuario.setUsuario(usuario);
     }
@@ -66,7 +65,7 @@ public class AvisoUsuarioServiceTest {
 
         // Verificações
         assertTrue(resultado.isPresent());
-        assertEquals(1, resultado.get().getId());
+        assertEquals(0, resultado.get().getId());
         assertEquals(TipoAvisoEnum.ATRASO, resultado.get().getTipoAviso());
         assertEquals(usuario.getId(), resultado.get().getUsuario().getId());
     }

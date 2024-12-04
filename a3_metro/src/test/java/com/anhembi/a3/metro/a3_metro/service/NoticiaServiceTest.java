@@ -48,7 +48,6 @@ public class NoticiaServiceTest {
         linha.setDescricao("Linha principal");
 
         noticia1 = new Noticia();
-        noticia1.setId(1);
         noticia1.setDescricao("Atraso na linha");
         noticia1.setTipoAviso(TipoAvisoEnum.ATRASO);
         noticia1.setUsuario(usuario);
@@ -76,15 +75,12 @@ public class NoticiaServiceTest {
 
     @Test
     public void create_retornaNoticiaSalva_quandoSucesso() {
-        Noticia noticiaSalva = noticia1;
-        noticiaSalva.setId(1);
-
-        when(noticiaRepo.save(noticia1)).thenReturn(noticiaSalva);
+        when(noticiaRepo.save(noticia1)).thenReturn(noticia1);
 
         Optional<Noticia> resultado = noticiaService.create(noticia1);
 
         assertTrue(resultado.isPresent());
-        assertEquals(1, resultado.get().getId());
+        assertEquals(0, resultado.get().getId());
         assertEquals("Atraso na linha", resultado.get().getDescricao());
         assertEquals(TipoAvisoEnum.ATRASO, resultado.get().getTipoAviso());
     }
