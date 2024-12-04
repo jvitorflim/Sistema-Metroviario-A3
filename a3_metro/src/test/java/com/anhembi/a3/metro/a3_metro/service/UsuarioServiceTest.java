@@ -31,7 +31,6 @@ class UsuarioServiceTest {
     void setUp() {
         // Criando usuário técnico (tecnico = true)
         usuarioTecnico = new Usuario();
-        usuarioTecnico.setId(1);
         usuarioTecnico.setNome("Bruno");
         usuarioTecnico.setEmail("usuario@teste.com");
         usuarioTecnico.setSenha("senha123");
@@ -112,6 +111,7 @@ class UsuarioServiceTest {
     @Test
     void testUpdateUsuario_Success() {
         // Mockando o retorno do repositório para um usuário já existente
+        usuarioTecnico.setId(1);
         when(usuarioRepo.findById(1)).thenReturn(Optional.of(usuarioTecnico));
         when(usuarioRepo.save(usuarioTecnico)).thenReturn(usuarioTecnico);
 
@@ -134,6 +134,7 @@ class UsuarioServiceTest {
     @Test
     void testDeleteUsuario_Success() {
         // Mockando o retorno do repositório para um usuário válido
+        usuarioTecnico.setId(1);
         when(usuarioRepo.findById(1)).thenReturn(Optional.of(usuarioTecnico));
 
         Optional<Usuario> usuarioOptional = usuarioService.delete(usuarioTecnico);

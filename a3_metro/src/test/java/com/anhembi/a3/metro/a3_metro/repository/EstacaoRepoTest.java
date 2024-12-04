@@ -86,7 +86,7 @@ public class EstacaoRepoTest {
         Optional<Estacao> foundEstacao = estacaoRepo.findById(estacaoUpdate.getId());
 
         // Verificar se as atualizações foram persistidas
-        //assertTrue(foundEstacao.isPresent());
+        assertTrue(foundEstacao.isPresent());
         assertEquals("Zona Leste Atualizada", foundEstacao.get().getLocalizacao());
         assertEquals(3, foundEstacao.get().getOrdem());
     }
